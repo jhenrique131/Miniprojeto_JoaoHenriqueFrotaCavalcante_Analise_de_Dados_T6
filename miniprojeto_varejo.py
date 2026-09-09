@@ -187,3 +187,10 @@ def validar_regra_co_id(df: pd.DataFrame) -> pd.DataFrame:
         qtd_itens = ("PR_ID", "count"),
         qtd_categorias_distintas = ("PR_CAT", "nunique"),
     ).reset_index()
+
+    print("\nDistribuição de itens por compra:")
+    print(resumo_compras["qtd_itens"].describe())
+    print("\nPrimeiras 5 compras resumidas")
+    print(resumo_compras.head())
+
+    return resumo_compras
