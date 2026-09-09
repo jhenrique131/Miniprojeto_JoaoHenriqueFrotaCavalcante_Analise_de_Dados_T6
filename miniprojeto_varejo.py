@@ -49,8 +49,8 @@ import numpy as np
 pd.set_option("display.width", 120)
 pd.set_option("display.max_columns", 20)
 
-ARQUIVO_ENTRADA   = r"E:\Curso SESI_SENAI\CienciaDeDados\ManipulacaoDeDadosComPythonSQL\DesafioPython\Arquivos\Miniprojeto_Varejo_AED\Base_Varejo.csv"
-ARQUIVO_SAIDA     = r"E:\Curso SESI_SENAI\CienciaDeDados\ManipulacaoDeDadosComPythonSQL\DesafioPython\Arquivos\Miniprojeto_Varejo_AED\df_limpo.csv"
+ARQUIVO_ENTRADA   = r"C:\Users\Usuário\Desktop\Miniprojeto_Varejo\Base_Varejo.csv"
+ARQUIVO_SAIDA     = r"C:\Users\Usuário\Desktop\Miniprojeto_Varejo\df_limpo.csv"
 SEPARADOR         = ";"
 CATEGORIA_AUSENTE = "#N/D"
 
@@ -93,7 +93,7 @@ def diagnosticar_problemas(df: pd.DataFrame) -> None:
 
     #A carga de arquivos CSV tenho como delimitador o (;) gera "colulas fantasmas"
     #mais conhecidas como "Unnamed"
-    colunas_fantasmas = [c for in df.columns if c.startwith("Unnamed")]
+    colunas_fantasmas = [c for c in df.columns if c.startwith("Unnamed")]
     if colunas_fantasmas:
         print(f"Colunas nulas ou 'fantasmas' geradas pelo delimitador (;): {colunas_fantasmas}")
 
@@ -115,8 +115,8 @@ def diagnosticar_problemas(df: pd.DataFrame) -> None:
           f"({pct_cat_ausente:.2f}% da base)")
 
 #Datas inválidas
-data_convertidas = pd.to_datetime(df["DATA"], format="%d/%m/%Y",errors="coerce")
-qtd_datas_invalidas = data_convertidas.isna().sum()
+datas_convertidas = pd.to_datetime(df["DATA"], format="%d/%m/%Y", errors="coerce")
+qtd_datas_invalidas = datas_convertidas.isna().sum()
 print(f"Registros com datas inválidas: " f"{qtd_datas_invalidas}")
 
 #Verifica a unicidade de registros das colunas CL_GENERO e CL_SEG
