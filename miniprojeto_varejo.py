@@ -49,9 +49,9 @@ import numpy as np
 pd.set_option("display.width", 120)
 pd.set_option("display.max_columns", 20)
 
-ARQUIVO_ENTRADA = "Base_Varejo.csv"
-ARQUIVO_SAIDA = "df_limpo.csv"
-SEPARADOR = ";"
+ARQUIVO_ENTRADA   = "E:\Curso SESI_SENAI\CienciaDeDados\ManipulacaoDeDadosComPythonSQL\DesafioPython\Arquivos\Miniprojeto_Varejo_AED\Base_Varejo.csv"
+ARQUIVO_SAIDA     = "E:\Curso SESI_SENAI\CienciaDeDados\ManipulacaoDeDadosComPythonSQL\DesafioPython\Arquivos\Miniprojeto_Varejo_AED\df_limpo.csv"
+SEPARADOR         = ";"
 CATEGORIA_AUSENTE = "#N/D"
 
 
