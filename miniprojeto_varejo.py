@@ -114,31 +114,54 @@ def diagnosticar_problemas(df: pd.DataFrame) -> None:
           f"('{CATEGORIA_AUSENTE}'): {qtd_cat_ausente}" 
           f"({pct_cat_ausente:.2f}% da base)")
 
-#Datas inválidas
-datas_convertidas = pd.to_datetime(df["DATA"], format="%d/%m/%Y", errors="coerce")
-qtd_datas_invalidas = datas_convertidas.isna().sum()
-print(f"Registros com datas inválidas: " f"{qtd_datas_invalidas}")
+    #Datas inválidas
+    datas_convertidas = pd.to_datetime(df["DATA"], format="%d/%m/%Y", errors="coerce")
+    qtd_datas_invalidas = datas_convertidas.isna().sum()
+    print(f"Registros com datas inválidas: " f"{qtd_datas_invalidas}")
 
-#Verifica a unicidade de registros das colunas CL_GENERO e CL_SEG
-print(f"\nRegistros únicos na coluna CL_GENERO: {sorted(df['CL_GENERO'].unique())}")
-print(f"\nRegistros únicos na coluna CL_SEG: {sorted(df['CL_SEG'].unique())}")
+    #Verifica a unicidade de registros das colunas CL_GENERO e CL_SEG
+    print(f"\nRegistros únicos na coluna CL_GENERO: {sorted(df['CL_GENERO'].unique())}")
+    print(f"\nRegistros únicos na coluna CL_SEG: {sorted(df['CL_SEG'].unique())}")
 
 # ==========================================================================
 # ETAPA 3 - LIMPEZA MÍNIMA DOS DADOS
 # ==========================================================================
 #Tratamento de nulos, duplicatas relevantesl, tipos de dados e inconsistências tipo "#N/D"
-linha("Etapa 3 - Limpeza dos dados")
-df = df.copy()
-registros_iniciais = len(df)
+def limpar_dados(df: pd.DataFrame) -> pd.DataFrame:
+    linha("Etapa 3 - Limpeza dos dados")
+    df = df.copy()
+    registros_iniciais = len(df)
 
-#Tratamento de dados nulos
-#As colunas "Unnamed: *" não trazem informação nenhuma
-colunas_fantasmas = [c for c in df.columns if c.startswith("Unnamed")]
-if colunas_fantasmas:
-    df = df.drop(columns=colunas_fantasmas)
-    print(f"Colunas 100% nulas(NaN) removidas: {colunas_fantasmas}")
+    #Tratamento de dados nulos
+    #As colunas "Unnamed: *" não trazem informação nenhuma
+    colunas_fantasmas = [c for c in df.columns if c.startswith("Unnamed")]
+    if colunas_fantasmas:
+        df = df.drop(columns=colunas_fantasmas)
+        print(f"Colunas 100% nulas(NaN) removidas: {colunas_fantasmas}")
 
-#Trocando o registro "#N/D" por não informado
-qtd_antes = (df["PR_CAT"] == CATEGORIA_AUSENTE).sum()
-df["PR_CAT"] = df["PR_CAT"].replace(CATEGORIA_AUSENTE, "NÃO INFORMADO")
-print(f"Categoria '{CATEGORIA_AUSENTE}' imputada como 'NÃO INFORMADO'" f"em {qtd_antes} registros.")
+    #Trocando o registro "#N/D" por não informado
+    qtd_antes = (df["PR_CAT"] == CATEGORIA_AUSENTE).sum()
+    df["PR_CAT"] = df["PR_CAT"].replace(CATEGORIA_AUSENTE, "NÃO INFORMADO")
+    print(f"Categoria '{CATEGORIA_AUSENTE}' imputada como 'NÃO INFORMADO'" f"em {qtd_antes} registros.")
+
+    #Remoção de duplicatas
+    antes = len(df)
+    df = df.drop_duplicated(subset=["CO_ID", "PR_ID"], keep="first")
+    removidas = antes - len(df)
+    print(f"Duplicatas (mesmo PR_ID na mesma compra CO_ID) removidas: " f"{removidas}")
+
+    #Ajustes de tipo de dados
+    df["DATA"] = pd.to_datetime(df["DATA"], format="%d/%m/%Y", errors="coerce")
+
+    #Colunas Categóricas: tipo category
+    for col in ["CO_ID", "CL_ID", "CL_EC", "CL_FHL", "PR_ID"]:
+        df[col] = df[col].astype("int64")
+    print("\nTipos de dados após a limpeza")
+    print(df.dtypes)
+
+    registros_finais = len(df)
+    print(f"\nRegistros antes de limpeza: {registros_iniciais}")
+    print(f"\nRegistros após a limpeza: {registros_finais}")
+    print(f"\nTotal de linhas removidas: " f"{registros_iniciais - registros_finais}")
+
+    return df
