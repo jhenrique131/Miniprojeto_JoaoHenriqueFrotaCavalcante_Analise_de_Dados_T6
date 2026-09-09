@@ -49,8 +49,8 @@ import numpy as np
 pd.set_option("display.width", 120)
 pd.set_option("display.max_columns", 20)
 
-ARQUIVO_ENTRADA   = "E:\Curso SESI_SENAI\CienciaDeDados\ManipulacaoDeDadosComPythonSQL\DesafioPython\Arquivos\Miniprojeto_Varejo_AED\Base_Varejo.csv"
-ARQUIVO_SAIDA     = "E:\Curso SESI_SENAI\CienciaDeDados\ManipulacaoDeDadosComPythonSQL\DesafioPython\Arquivos\Miniprojeto_Varejo_AED\df_limpo.csv"
+ARQUIVO_ENTRADA   = r"E:\Curso SESI_SENAI\CienciaDeDados\ManipulacaoDeDadosComPythonSQL\DesafioPython\Arquivos\Miniprojeto_Varejo_AED\Base_Varejo.csv"
+ARQUIVO_SAIDA     = r"E:\Curso SESI_SENAI\CienciaDeDados\ManipulacaoDeDadosComPythonSQL\DesafioPython\Arquivos\Miniprojeto_Varejo_AED\df_limpo.csv"
 SEPARADOR         = ";"
 CATEGORIA_AUSENTE = "#N/D"
 
@@ -122,3 +122,4 @@ print(f"Registros com datas inválidas: " f"{qtd_datas_invalidas}")
 #Verifica a unicidade de registros das colunas CL_GENERO e CL_SEG
 print(f"\nRegistros únicos na coluna CL_GENERO: {sorted(df['CL_GENERO'].unique())}")
 print(f"\nRegistros únicos na coluna CL_SEG: {sorted(df['CL_SEG'].unique())}")
+
