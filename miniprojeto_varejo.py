@@ -55,9 +55,28 @@ SEPARADOR = ";"
 CATEGORIA_AUSENTE = "#N/D"
 
 
+#Imprime um separador visual no relatório do terminal
 def linha(titulo=""):
-    """Imprime um separador visual no relatório do terminal."""
     print("\n" + "=" * 78)
     if titulo:
         print(titulo)
         print("=" * 78)
+
+
+# ==========================================================================
+# ETAPA 1 - CARGA DOS DADOS
+# ==========================================================================
+#Carrega o arquivo CSV e exibe uma visão geral dos dados
+def carregar_dados(caminho: str) -> pd.DataFrame:
+    df = pd.read_csv(caminho, sep=SEPARADOR)
+
+    linha("Etapa 1 - Carga e Visão geral dos dados")
+    print(f"Arquivo carregado: {caminho}")
+    print(f"Quantidade de linhas: {df.shape[0]}")
+    print(f"Quantidade de colunas: {df.shape[1]}")
+    print("\nTipo de Dados:")
+    print(df.dtypes)
+    print("\nRegistros de origem:")
+    print(df.head())
+
+    return df
