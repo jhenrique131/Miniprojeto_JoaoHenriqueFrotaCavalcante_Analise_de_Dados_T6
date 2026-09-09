@@ -114,3 +114,11 @@ def diagnosticar_problemas(df: pd.DataFrame) -> None:
           f"('{CATEGORIA_AUSENTE}'): {qtd_cat_ausente}" 
           f"({pct_cat_ausente:.2f}% da base)")
 
+#Datas inválidas
+data_convertidas = pd.to_datetime(df["DATA"], format="%d/%m/%Y",errors="coerce")
+qtd_datas_invalidas = data_convertidas.isna().sum()
+print(f"Registros com datas inválidas: " f"{qtd_datas_invalidas}")
+
+#Verifica a unicidade de registros das colunas CL_GENERO e CL_SEG
+print(f"\nRegistros únicos na coluna CL_GENERO: {sorted(df['CL_GENERO'].unique())}")
+print(f"\nRegistros únicos na coluna CL_SEG: {sorted(df['CL_SEG'].unique())}")
