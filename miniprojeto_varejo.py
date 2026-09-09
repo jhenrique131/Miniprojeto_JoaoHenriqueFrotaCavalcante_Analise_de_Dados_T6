@@ -167,3 +167,7 @@ def limpar_dados(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 print(f"\nPassou pela ETAPA - 3")
+
+# ==========================================================================
+# ETAPA 4 - VALIDAÇÃO DA REGRA CO_ID (item x compra)
+# ==========================================================================
