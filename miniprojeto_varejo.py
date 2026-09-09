@@ -123,3 +123,22 @@ print(f"Registros com datas inválidas: " f"{qtd_datas_invalidas}")
 print(f"\nRegistros únicos na coluna CL_GENERO: {sorted(df['CL_GENERO'].unique())}")
 print(f"\nRegistros únicos na coluna CL_SEG: {sorted(df['CL_SEG'].unique())}")
 
+# ==========================================================================
+# ETAPA 3 - LIMPEZA MÍNIMA DOS DADOS
+# ==========================================================================
+#Tratamento de nulos, duplicatas relevantesl, tipos de dados e inconsistências tipo "#N/D"
+linha("Etapa 3 - Limpeza dos dados")
+df = df.copy()
+registros_iniciais = len(df)
+
+#Tratamento de dados nulos
+#As colunas "Unnamed: *" não trazem informação nenhuma
+colunas_fantasmas = [c for c in df.columns if c.startswith("Unnamed")]
+if colunas_fantasmas:
+    df = df.drop(columns=colunas_fantasmas)
+    print(f"Colunas 100% nulas(NaN) removidas: {colunas_fantasmas}")
+
+#Trocando o registro "#N/D" por não informado
+qtd_antes = (df["PR_CAT"] == CATEGORIA_AUSENTE).sum()
+df["PR_CAT"] = df["PR_CAT"].replace(CATEGORIA_AUSENTE, "NÃO INFORMADO")
+print(f"Categoria '{CATEGORIA_AUSENTE}' imputada como 'NÃO INFORMADO'" f"em {qtd_antes} registros.")
