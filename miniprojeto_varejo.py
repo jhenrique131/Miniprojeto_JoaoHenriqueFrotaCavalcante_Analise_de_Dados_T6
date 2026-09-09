@@ -80,3 +80,37 @@ def carregar_dados(caminho: str) -> pd.DataFrame:
     print(df.head())
 
     return df
+# ==========================================================================
+# ETAPA 2 - VERIFICAÇÃO DE PROBLEMAS (qualidade dos dados)
+# ==========================================================================
+#Reporta nulos (NaN), registros duplicados duplicados e inconsistências
+def diagnosticar_problemas(df: pd.DataFrame) -> None:
+    linha("Etapa 2 - Qualidade de Dados")
+
+    #Valores nulos por coluna
+    print("Valores nulos(NaN) por coluna")
+    print(df.isnull().sum())
+
+    #A carga de arquivos CSV tenho como delimitador o (;) gera "colulas fantasmas"
+    #mais conhecidas como "Unnamed"
+    colunas_fantasmas = [c for in df.columns if c.startwith("Unnamed")]
+    if colunas_fantasmas:
+        print(f"Colunas nulas ou 'fantasmas' geradas pelo delimitador (;): {colunas_fantasmas}")
+
+    #Duplicatas
+    duplicadas_completas = df.duplicated().sum()
+    print(f"\nRegistros duplicados: {duplicadas_completas}")
+
+    #Duplicata referente ao negócio, ou seja, o mesmo produto aparecendo mais de uma vez na mesma compra
+    #Isso pode indicar erro de digitação ou leitura de código de barras e não uma outra unidade vendida
+    dup_item_na_compra = df.duplicated(subset=['CO_ID', 'PR_ID']).sum()
+    print(f"Linha com o mesmo registro de PR_ID repetido na mesma compra" f"(CO_ID): {dup_item_na_compra}")
+
+    #Inconsistências 
+    #Categoria de produtos ausentes - "#N/D"
+    qtd_cat_ausente = (df["PR_CAT"] == CATEGORIA_AUSENTE).sum()
+    pct_cat_ausente = qtd_cat_ausente/len(df) * 100
+    print(f"\nCategoria de produtos ausentes " 
+          f"('{CATEGORIA_AUSENTE}'): {qtd_cat_ausente}" 
+          f"({pct_cat_ausente:.2f}% da base)")
+
