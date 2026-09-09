@@ -80,6 +80,7 @@ def carregar_dados(caminho: str) -> pd.DataFrame:
     print(df.head())
 
     return df
+print(f"\nPassou pela ETAPA - 1")
 # ==========================================================================
 # ETAPA 2 - VERIFICAÇÃO DE PROBLEMAS (qualidade dos dados)
 # ==========================================================================
@@ -122,7 +123,7 @@ def diagnosticar_problemas(df: pd.DataFrame) -> None:
     #Verifica a unicidade de registros das colunas CL_GENERO e CL_SEG
     print(f"\nRegistros únicos na coluna CL_GENERO: {sorted(df['CL_GENERO'].unique())}")
     print(f"\nRegistros únicos na coluna CL_SEG: {sorted(df['CL_SEG'].unique())}")
-
+print(f"\nPassou pela ETAPA - 2")
 # ==========================================================================
 # ETAPA 3 - LIMPEZA MÍNIMA DOS DADOS
 # ==========================================================================
@@ -165,3 +166,4 @@ def limpar_dados(df: pd.DataFrame) -> pd.DataFrame:
     print(f"\nTotal de linhas removidas: " f"{registros_iniciais - registros_finais}")
 
     return df
+print(f"\nPassou pela ETAPA - 3")
