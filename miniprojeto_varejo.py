@@ -171,3 +171,19 @@ print(f"\nPassou pela ETAPA - 3")
 # ==========================================================================
 # ETAPA 4 - VALIDAÇÃO DA REGRA CO_ID (item x compra)
 # ==========================================================================
+#Confirmação da compra e construção do resumo por compra
+def validar_regra_co_id(df: pd.DataFrame) -> pd.DataFrame:
+    linha("Etapa 4 - Validação do identificador de comrpa, campo CO_ID")
+    total_linhas = len(df)
+    total_compras = df["CO_ID"].nunique()
+    print(f"Total de itens comprados: {total_linhas}")
+    print(f"Total de compras únicas - Sem repetição/distintas: {total_compras}")
+    print(f"Média de itens por compras: {total_linhas-total_compras:.2f}")
+
+    #Resumo por compra, cliente e data da compra
+    resumo_compras = df.groupby("CO_ID").agg(
+        cliente=("CL_ID", "first"),
+        data_compra = ("DATA", "first"),
+        qtd_itens = ("PR_ID", "count"),
+        qtd_categorias_distintas = ("PR_CAT", "nunique"),
+    ).reset_index()
