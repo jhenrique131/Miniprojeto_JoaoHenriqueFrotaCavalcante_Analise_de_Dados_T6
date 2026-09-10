@@ -222,3 +222,32 @@ def estatisticas_filho(df: pd.DataFrame) -> None:
     print(filhos.describe())
     print(f"\nDistribuição de Frequência - Número de filhos, quantidade de clientes: ")
     print(filhos.value_counts().sort_index())
+# ==========================================================================
+# ETAPA 6 - PADRÕES DE AGRUPAMENTO
+# ==========================================================================
+#Exploração de agrupamentos relevantes para o negócio
+def explorar_agrupamento(df: pd.DataFrame) -> None:
+    linha("Etapa 6 - Padrões de Agrupamento")
+
+    #Itens vendidos e clientes distintos por gênero - Agrupamento 1
+    print("[Agrupamento 1] Itens vendidos e clientes distintos por gênero:")
+    por_genero = df.groupby("CL_GENERO", observed=True).agg(
+        qtd_itens_vendidos = ("PR_ID", "count"),
+        clientes_distintos = ("CL_ID", "nunique"),
+        compras_distintas = ("CO_ID", "nunique")
+    )
+    print(por_genero)
+
+    #Itens vendidos por categoria de produtos - Agrupamento 2
+    print("\n[Agrupamento 2] Itens vendidos por categoria de produto" "(top categorias):")
+    por_categoria = (df.groupby("PR_CAT", observed=True)
+                     .size().sort_values(ascending=False).rename("qtd_itens_vendidos")
+                     )
+    print(por_categoria)
+
+    #Pivot_table de gênero versus categoria - Agrupamento 3
+    print("\n[Agrupamento 3] Tabela Dinâmica de quantidade de itens por categoria versus seguimento do cliente")
+    tabela_dinamica = pd.pivot_table(df,index="PR_CAT",columns="CL_SEG", 
+                                     values="PR_ID", aggfunc="count", fill_value=0, observed=True)
+    print(tabela_dinamica)
+    
