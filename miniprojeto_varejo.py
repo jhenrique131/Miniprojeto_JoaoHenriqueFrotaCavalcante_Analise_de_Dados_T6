@@ -257,6 +257,32 @@ def explorar_agrupamento(df: pd.DataFrame) -> None:
                                 .groupby("ANO_MES", observed=True).size())
                                 )
     print(vendas_por_mes)
+# ==========================================================================
+# ETAPA 7 - CONCLUSÕES E RELATÓRIO FINAL
+# ==========================================================================
+#Impressão dos resultados obtidos
+def gerar_conclusoes(df_bruto: pd.DataFrame, df_limpo: pd.DataFrame) -> None:
+    linha("Etapa 7 - Conclusões e Relatórios finais")
+    total_bruto = len(df_bruto)
+    total_limpo = len(df_limpo)
+    total_compras = df_limpo["CO_ID"].nunique()
+    total_clientes = df_limpo["CL_ID"].nunique()
+    genero_top = df_limpo["CL_GENERO"].value_counts().idxmax()
+    categoria_top = df_limpo["PR_CAT"].value_counts().idxmax()
+    media_itens_compra = total_limpo/total_compras
+    conclusoes = [
+        f"A base original possuía {total_bruto} linhas (itens comprados); "
+        f"após a limpeza (remoção de duplicatas de item por compra e de "
+        f"colunas 100% vazias), restaram {total_limpo} linhas válidas.",
+
+        f"A base representa {total_clientes} clientes únicos realizando "
+        f"{total_compras} compras distintas, com uma média de "
+        f"{media_itens_compra:.1f} itens por compra (CO_ID).",
+
+        
+        
+    ]
+
 
 
 
