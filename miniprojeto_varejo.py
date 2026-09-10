@@ -194,3 +194,31 @@ def validar_regra_co_id(df: pd.DataFrame) -> pd.DataFrame:
     print(resumo_compras.head())
 
     return resumo_compras
+
+# ==========================================================================
+# ETAPA 5 - ESTATÍSTICA DESCRITIVA (número de filhos do cliente)
+# ==========================================================================
+#Cálculo sobre a coluna CL_FHL que é referente a quantidade de filhos dos clientes.
+#Tudo é calculado sobre a base de Clientes Únicos para que o resultado não pese a favor
+#de quem comprou mais itens
+
+def estatisticas_filho(df: pd.DataFrame) -> None:
+    linha("Etapa 5 - Quantidade de filhos do cliente - Estatística Descritiva")
+    clientes_unicos = df.drop_duplicates(subset="CL_ID")
+    filhos = clientes_unicos["CL_FHL"]
+    print(f"Base que está sendo considerada:{len(clientes_unicos)} clientes únicos" 
+          f"Evita contar o memso cliente várias vezes por item comprado")
+    print(f"\nContagem: {filhos.count()}")
+    print(f"Média: {filhos.mean()}")
+    print(f"Mediana: {filhos.median()}")
+    print(f"Desvio Padrão: {filhos.std()}")
+    print(f"Moda: {filhos.mode().tolist()}")
+    print(f"Minimo: {filhos.min()}")
+    print(f"Máximo: {filhos.max()}")
+    print(f"1º Quartil - 25%: {filhos.quantile(0.25)}")
+    print(f"2º Quartil - 50%: {filhos.quantile(0.50)}")
+    print(f"3º Quartil - 75%: {filhos.quantile(0.75)}")
+    print(f"\nResumo:")
+    print(filhos.describe())
+    print(f"\nDistribuição de Frequência - Número de filhos, quantidade de clientes: ")
+    print(filhos.value_counts().sort_index())
