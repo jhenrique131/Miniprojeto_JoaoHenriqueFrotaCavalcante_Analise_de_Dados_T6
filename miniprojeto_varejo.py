@@ -279,9 +279,30 @@ def gerar_conclusoes(df_bruto: pd.DataFrame, df_limpo: pd.DataFrame) -> None:
         f"{total_compras} compras distintas, com uma média de "
         f"{media_itens_compra:.1f} itens por compra (CO_ID).",
 
-        
+        f"O gênero com maior volume de itens comprados é '{genero_top}', "
+        f"o que pode orientar campanhas e sortimento direcionados.",
+
+        f"A categoria de produto mais vendida é '{categoria_top}', "
+        f"indicando o principal motor de vendas da rede.",
+
+        "A coluna de número de filhos do cliente (CL_FHL) apresenta baixa "
+        "variabilidade (poucos valores distintos, de 0 a 4), o que é "
+        "coerente com um dado cadastral discreto e sugere que ela é mais "
+        "útil como variável de segmentação do que de tendência central.",
+
+        "Problemas remanescentes: (a) a base não possui coluna de valor "
+        "monetário (preço/quantidade), o que limita análises de "
+        "faturamento e ticket médio; (b) mesmo após a imputação, a "
+        "categoria 'NAO INFORMADO' (antigo '#N/D') ainda representa "
+        "produtos sem classificação de categoria, o que pode ser "
+        "melhorado com um cadastro de produtos mais completo; (c) não há "
+        "verificação cruzada de que os dados cadastrais do cliente "
+        "(gênero, estado civil, filhos) são estáveis ao longo do tempo "
+        "para o mesmo CL_ID.",
         
     ]
+    for i, c in enumerate(conclusoes, start=1):
+        print(f"{i}.{c}\n")
 
 
 
