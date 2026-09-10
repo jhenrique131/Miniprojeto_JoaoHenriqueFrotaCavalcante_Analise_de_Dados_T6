@@ -94,7 +94,7 @@ def diagnosticar_problemas(df: pd.DataFrame) -> None:
 
     #A carga de arquivos CSV tenho como delimitador o (;) gera "colulas fantasmas"
     #mais conhecidas como "Unnamed"
-    colunas_fantasmas = [c for c in df.columns if c.startwith("Unnamed")]
+    colunas_fantasmas = [c for c in df.columns if c.startswith("Unnamed")]
     if colunas_fantasmas:
         print(f"Colunas nulas ou 'fantasmas' geradas pelo delimitador (;): {colunas_fantasmas}")
 
