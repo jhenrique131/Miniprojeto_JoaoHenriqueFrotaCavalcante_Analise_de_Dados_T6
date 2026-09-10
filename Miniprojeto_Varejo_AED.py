@@ -64,7 +64,7 @@ def linha(titulo=""):
 
 
 # ==========================================================================
-# ETAPA 1 - CARGA DOS DADOS
+# ETAPA 1 - CARGA DOS DADOS (IMPORTAÇÃO DOS DADOS)
 # ==========================================================================
 #Carrega o arquivo CSV e exibe uma visão geral dos dados
 def carregar_dados(caminho: str) -> pd.DataFrame:
