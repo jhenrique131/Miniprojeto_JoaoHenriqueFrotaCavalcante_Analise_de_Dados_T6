@@ -147,7 +147,7 @@ def limpar_dados(df: pd.DataFrame) -> pd.DataFrame:
 
     #Remoção de duplicatas
     antes = len(df)
-    df = df.drop_duplicated(subset=["CO_ID", "PR_ID"], keep="first")
+    df = df.drop_duplicates(subset=["CO_ID", "PR_ID"], keep="first")
     removidas = antes - len(df)
     print(f"Duplicatas (mesmo PR_ID na mesma compra CO_ID) removidas: " f"{removidas}")
 
