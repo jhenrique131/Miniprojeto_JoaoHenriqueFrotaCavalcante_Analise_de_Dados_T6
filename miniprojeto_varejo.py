@@ -303,7 +303,25 @@ def gerar_conclusoes(df_bruto: pd.DataFrame, df_limpo: pd.DataFrame) -> None:
     ]
     for i, c in enumerate(conclusoes, start=1):
         print(f"{i}.{c}\n")
+# ==========================================================================
+# EXECUÇÃO PRINCIPAL
+# ==========================================================================
+#Passagem de parâmetros para os Métodos criados anteriormente
+def main():
+    df_bruto = carregar_dados(ARQUIVO_ENTRADA)
+    diagnosticar_problemas(df_bruto)
+    df_limpo = limpar_dados(df_bruto)
+    validar_regra_co_id(df_limpo)
+    estatisticas_filho(df_limpo)
+    explorar_agrupamento(df_limpo)
+    gerar_conclusoes(df_bruto, df_limpo)
 
+    #Salva a base limpa para uso em Análises ou Dashboards
+    df_limpo.to_csv(ARQUIVO_SAIDA, sep=";", index=False)
+    linha("Fim da execução")
+    print(f"Base limpa exportada para: {ARQUIVO_SAIDA}")
+if __name__ == "__main__":
+    main()
 
 
 
