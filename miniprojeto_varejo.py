@@ -253,9 +253,11 @@ def explorar_agrupamento(df: pd.DataFrame) -> None:
 
     #Vendas ao longo do tempo por mês - Agrupamento 4
     print("\n[Agrupamento 4] Venadas os longo do tempo por mês")
-    vendas_por_mes = (df.assign(ANO_MES=df["DATA"].dt.to_period("M")
-                                .groupby("ANO_MES", observed=True).size())
-                                )
+    vendas_por_mes = (
+        df.assign(ANO_MES=df["DATA"].dt.to_period("M"))
+        .groupby("ANO_MES", observed=True)
+        .size()
+        )
     print(vendas_por_mes)
 # ==========================================================================
 # ETAPA 7 - CONCLUSÕES E RELATÓRIO FINAL
