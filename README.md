@@ -1,7 +1,8 @@
 # Mini-Projeto Avaliativo — Análise Exploratória de Dados (AED) — Base Varejo
 
-**Turma:** Analise_de_Dados_T6
-**Módulo:** 1 — Introdução à Análise de Dados
+## Acesso ao github
+
+https://github.com/jhenrique131/Miniprojeto_JoaoHenriqueFrotaCavalcante_Analise_de_Dados_T6
 
 ## 📋 Sobre o projeto
 
